@@ -1,0 +1,56 @@
+<script>
+//---paste here(replace loginKey)
+const loginKey = '';
+//---paste here
+
+
+const monthTicket = '0202000a182e6c712e4c6f6262792e7061794d6f6e74685469636b6574120308f207';
+
+let intervalID = setInterval(myCallback, 6*60*60*1000);//6 hours 1 time
+
+function myCallback()
+{
+	// Parameters are purely optional.
+	getMonthTicket();
+}
+
+myCallback();
+
+function getMonthTicket(){
+// Create WebSocket connection.
+const socket = new WebSocket('wss://gateway-v2.maj-soul.com:6443/');
+
+function getBinary(message){
+	let len = message.length/2;
+	let uint8 = new Uint8Array(len);
+	//key to binary
+	for(let i=0;i<len;i++){
+		let uint32 = parseInt(message.substring(i*2,i*2+2),16);
+		uint8[i] = uint32;
+	}	
+	return uint8;
+}
+// Connection opened
+socket.addEventListener('open', function (event) {
+	socket.send(getBinary(loginKey));
+});
+
+// Listen for messages
+socket.addEventListener('message', function (event) {
+    //console.log(new Date().toTimeString() + ' Message from server ', event.data);
+	if(event.data.size > 300){	
+		console.log(new Date().toTimeString() + ' 登錄成功');
+	}
+	else if(event.data.size == 12){	
+		console.log(new Date().toTimeString() + ' 領石失敗');
+	}	
+	else if(event.data.size == 13){	
+		console.log(new Date().toTimeString() + ' 領石成功');
+	}
+	else{
+		socket.close();
+	}
+	
+});
+}
+</script>
