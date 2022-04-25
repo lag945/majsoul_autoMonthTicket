@@ -8,17 +8,18 @@
 1. 取得登入金鑰
 	- 打開chrome，進入[雀魂網站](https://game.maj-soul.com/1/)
 	- 按下F12開啟開發者模式，點選NetWork頁籤並篩選WS
-	- 打帳號密碼登錄成功
+	- 打帳號密碼進入遊戲並登錄成功
 	- 開始找目標通訊
-		- !t[](images/p1.png)
+		- ![](images/p1.png)
 		- 左邊Name選擇gateway-v2.maj-soul.com，右邊頁籤選擇Messages會看到很多Binary Message
 		- 找綠色向上箭頭，內容比較大前面有login與你的email的通訊
 	- 複製hex
-		- !t[](images/p2.png)
-		- 對目錄通訊右鍵按複製
+		- ![](images/p2.png)
+		- 對目錄通訊右鍵按複製，Copy message...->Copy as Hex
 2. 修改網頁
+	- 右鍵另存[網頁](https://raw.githubusercontent.com/lag945/majsoul_autoMonthTicket/main/majsoul_autoMonthTicket.htm)到桌面
 	- 記事本開啟majsoul_autoMonthTicket.htm
-	- 將上一步複製的hex貼上loginKey中，如
+	- 將上一步複製的hex貼上loginKey中，如下，開頭可能是02xx，0201~0209甚至更高都有可能
 		```
 		const loginKey = '0206******';
 		```
@@ -33,7 +34,7 @@
 	- 領石，固定，只要登入成功即可領石
 
 ## 未來發展
-1. 提供unsafe版本以降低使用門檻，使用者只需要填入自己的帳號即可(但密碼為固定，有被盜風險)
+1. 提供unsafe版本以降低使用門檻，使用者只需要填入自己的e-mail帳號即可(但密碼需為固定，有被盜風險)
 2. 更豐富的領石時間設定
 3. 輸出更詳細與準確的資訊
 
