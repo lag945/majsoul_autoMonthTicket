@@ -39,7 +39,7 @@ socket.addEventListener('open', function (event) {
 
 // Listen for messages
 socket.addEventListener('message', function (event) {
-    console.log(new Date().toTimeString() + ' Message from server ', event.data);
+    //console.log(new Date().toTimeString() + ' Message from server ', event.data);
 	let uint8 = new Uint8Array(event.data);
 	
 	if(uint8[1] == parseInt(loginKey.substring(2,4),16)){
