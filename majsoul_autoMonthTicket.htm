@@ -5,6 +5,7 @@ const loginKey = '';
 
 
 const monthTicket = '0202000a182e6c712e4c6f6262792e7061794d6f6e74685469636b6574120308f207';
+const reviveCoin = '0203000a182e6c712e4c6f6262792e6761696e526576697665436f696e1200';
 
 let intervalID = setInterval(myCallback, 6*60*60*1000);//6 hours 1 time
 
@@ -45,6 +46,7 @@ socket.addEventListener('message', function (event) {
 		if(uint8.length>300){
 			console.log(new Date().toTimeString() + ' 登錄成功');
 			socket.send(getBinary(monthTicket));
+			//socket.send(getBinary(reviveCoin));
 		}
 		else{
 			console.log(new Date().toTimeString() + ' 登錄失敗');
@@ -52,12 +54,20 @@ socket.addEventListener('message', function (event) {
 	}
 	else if(uint8[1] == parseInt(monthTicket.substring(2,4),16)){	
 		if(uint8.length>12){
-			console.log(new Date().toTimeString() + ' 領石成功');
+			console.log(new Date().toTimeString() + ' 領月卡輝玉成功');
 		}
 		else{
-			console.log(new Date().toTimeString() + ' 領石失敗');
+			console.log(new Date().toTimeString() + ' 領月卡輝玉失敗');
 		}	
 	}	
+	else if(uint8[1] == parseInt(reviveCoin.substring(2,4),16)){	
+		if(uint8.length==7){
+			console.log(new Date().toTimeString() + ' 領復活幣成功');
+		}
+		else{
+			console.log(new Date().toTimeString() + ' 領復活幣失敗');
+		}	
+	}		
 	else{
 		console.log(new Date().toTimeString() + ' 未知通訊');
 	}
