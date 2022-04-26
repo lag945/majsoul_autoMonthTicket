@@ -19,6 +19,7 @@ myCallback();
 function getMonthTicket(){
 // Create WebSocket connection.
 const socket = new WebSocket('wss://gateway-v2.maj-soul.com:6443/');
+socket.binaryType = "arraybuffer";
 
 function getBinary(message){
 	let len = message.length/2;
@@ -37,19 +38,28 @@ socket.addEventListener('open', function (event) {
 
 // Listen for messages
 socket.addEventListener('message', function (event) {
-    //console.log(new Date().toTimeString() + ' Message from server ', event.data);
-	if(event.data.size > 300){	
-		console.log(new Date().toTimeString() + ' 登錄成功');
-		socket.send(getBinary(monthTicket));
+    console.log(new Date().toTimeString() + ' Message from server ', event.data);
+	let uint8 = new Uint8Array(event.data);
+	
+	if(uint8[1] == parseInt(loginKey.substring(2,4),16)){
+		if(uint8.length>300){
+			console.log(new Date().toTimeString() + ' 登錄成功');
+			socket.send(getBinary(monthTicket));
+		}
+		else{
+			console.log(new Date().toTimeString() + ' 登錄失敗');
+		}
 	}
-	else if(event.data.size == 12){	
-		console.log(new Date().toTimeString() + ' 領石失敗');
+	else if(uint8[1] == parseInt(monthTicket.substring(2,4),16)){	
+		if(uint8.length>12){
+			console.log(new Date().toTimeString() + ' 領石成功');
+		}
+		else{
+			console.log(new Date().toTimeString() + ' 領石失敗');
+		}	
 	}	
-	else if(event.data.size == 13){	
-		console.log(new Date().toTimeString() + ' 領石成功');
-	}
 	else{
-		socket.close();
+		console.log(new Date().toTimeString() + ' 未知通訊');
 	}
 	
 });
