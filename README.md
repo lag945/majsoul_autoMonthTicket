@@ -45,4 +45,4 @@
 
 ## 參考
 1. [majsoul_wrapper](https://github.com/747929791/majsoul_wrapper)
-2. [使用風險相關文章感](https://forum.gamer.com.tw/C.php?bsn=36476&snA=1245)，感謝巴哈小可 luckly0310告知
+2. [使用風險相關文章](https://forum.gamer.com.tw/C.php?bsn=36476&snA=1245)，感謝巴哈小可 luckly0310告知
